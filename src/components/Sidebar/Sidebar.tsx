@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { ISidebarProps } from "./interfaces";
+import { IUser } from "../../api/interfaces";
 
 import {
   SidebarContainer,
@@ -9,7 +9,11 @@ import {
   SubscribesWrapper,
 } from "./styles";
 
-const Sidebar: FC<ISidebarProps> = ({ userInfo }) => {
+type SidebarProps = {
+  userInfo: IUser;
+};
+
+const Sidebar: FC<SidebarProps> = ({ userInfo }) => {
   return (
     <SidebarContainer>
       <SidebarAvatar src={userInfo.avatar_url} />

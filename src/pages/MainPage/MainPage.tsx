@@ -28,6 +28,10 @@ const MainPage = () => {
     isFetching: reposIsFetching,
   } = reposResult;
 
+  const isUserAndInfoData = userInfo || !reposInfo;
+  const isFetchingData = isFetching || reposIsFetching;
+  const isError = error || reposError;
+
   useEffect(() => {
     setUserInfo(data);
   }, [data]);
@@ -47,11 +51,11 @@ const MainPage = () => {
     <AppWrapper maxWidth={false}>
       <Header value={userSearchValue} setValue={setUserSearchValue} />
 
-      {(isFetching || reposIsFetching) && <Spin />}
-      {(error || reposError) && <Error>Sorry, an error has occurred.</Error>}
+      {isFetchingData && <Spin />}
+      {isError && <Error>Sorry, an error has occurred.</Error>}
 
-      {!userInfo || !reposInfo ? (
-        (!error || !reposError) && <ScreenSaver />
+      {!isUserAndInfoData ? (
+        !isError && <ScreenSaver />
       ) : (
         <Stack direction="row">
           {userInfo && <Sidebar userInfo={userInfo} />}

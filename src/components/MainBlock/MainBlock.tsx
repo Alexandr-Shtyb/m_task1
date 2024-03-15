@@ -1,19 +1,26 @@
 import { FC, useState, useEffect } from "react";
-import { IMainBlockProps } from "./interfaces";
 import List from "@mui/material/List";
 import Repo from "../Repo/Repo";
 import { IRepos } from "../../api/interfaces";
+import usePagination from "../../hooks/usePagination";
+import { ITEMS_PER_PAGE_SEARCH_REPOS } from "../../constants/global";
 
 import { MainBlockContainer, RepoCounter, CustomPagination } from "./styles";
 
-const MainBlock: FC<IMainBlockProps> = ({ reposInfo }) => {
+type MainBlockProps = {
+  reposInfo: IRepos[];
+};
+
+const MainBlock: FC<MainBlockProps> = ({ reposInfo }) => {
   const [page, setPage] = useState(1);
 
-  const perPage = 10;
-  const count = Math.ceil(reposInfo?.length / perPage);
-  const startIndex = (page - 1) * perPage;
-  const endIndex = startIndex + perPage;
-  const displayedRepos = reposInfo?.slice(startIndex, endIndex);
+  const { displayedRepos, count } = usePagination<IRepos>(
+    reposInfo,
+    page,
+    ITEMS_PER_PAGE_SEARCH_REPOS,
+  );
+
+  const isVisiblePagination = displayedRepos.length > 0;
 
   const handleChangePage = (e: React.ChangeEvent<unknown>, page: number) => {
     setPage(page);
@@ -33,7 +40,7 @@ const MainBlock: FC<IMainBlockProps> = ({ reposInfo }) => {
         })}
       </List>
 
-      {displayedRepos.length > 0 && (
+      {isVisiblePagination && (
         <CustomPagination
           size="large"
           count={count}

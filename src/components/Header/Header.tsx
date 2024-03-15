@@ -1,11 +1,16 @@
 import { FC } from "react";
 import Toolbar from "@mui/material/Toolbar";
 import SearchInput from "../SearchInput/SearchInput";
-import { IHeaderProps } from "./interfaces";
+import { Dispatch, SetStateAction } from "react";
 
 import { CustomAppBar, CustomGitHubIcon } from "./styles";
 
-const Header: FC<IHeaderProps> = ({ value, setValue }) => {
+type HeaderProps = {
+  value: string;
+  setValue: Dispatch<SetStateAction<string>>;
+};
+
+const Header: FC<HeaderProps> = ({ value, setValue }) => {
   return (
     <CustomAppBar>
       <Toolbar>

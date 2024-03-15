@@ -1,9 +1,13 @@
 import { FC } from "react";
-import { IRepoProps } from "./interfaces";
+import { IRepos } from "../../api/interfaces";
 
 import { CustomListItem, RepoWrapper, RepoName } from "./styles";
 
-const Repo: FC<IRepoProps> = ({ repoInfo }) => {
+type RepoProps = {
+  repoInfo: IRepos;
+};
+
+const Repo: FC<RepoProps> = ({ repoInfo }) => {
   return (
     <CustomListItem>
       <RepoWrapper>

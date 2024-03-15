@@ -1,20 +1,30 @@
 import { FC } from "react";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
-import { ISearchInputProps } from "./interfaces";
+import { Dispatch, SetStateAction } from "react";
 
 import { CustomSearchInput } from "./styles";
 
-const SearchInput: FC<ISearchInputProps> = ({
+type SearchInputProps = {
+  placeholder: string;
+  value: string;
+  setValue: Dispatch<SetStateAction<string>>;
+};
+
+const SearchInput: FC<SearchInputProps> = ({
   placeholder,
   value,
   setValue,
 }) => {
+  const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+  };
+
   return (
     <CustomSearchInput
       value={value}
       onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-        setValue(e.target.value)
+        handleSearchInput(e)
       }
       placeholder={placeholder}
       InputProps={{
