@@ -1,0 +1,1 @@
+export const ITEMS_PER_PAGE_SEARCH_REPOS = 10;
